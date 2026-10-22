@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mint Help</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #131B24;
+      --surface:   #1C2535;
+      --border:    rgba(255,255,255,0.1);
+      --text:      #ffffff;
+      --muted:     rgba(255,255,255,0.55);
+      --brand:     #0176D3;
+      --teal:      #4ECDC4;
+    }
+
+    html, body {
+      min-height: 100%;
+      width: 100%;
+      background-color: var(--bg);
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+    }
+
+    /* ── Top nav bar ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(19,27,36,0.85);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-logo {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .topbar-logo span { color: var(--teal); }
+
+    .topbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .topbar-nav a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .topbar-nav a:hover {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 1.5rem 4rem;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 1.25rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+    .hero-heading {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      max-width: 700px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-heading em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--brand) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── CTA buttons ── */
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 5rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+    .btn-primary {
+      background: var(--brand);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #0164b8; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.06); transform: translateY(-1px); }
+
+    /* ── Feature cards ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 860px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s, transform 0.15s;
+      display: block;
+    }
+    .card:hover {
+      border-color: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
+    .card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+    .card-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top navigation -->
+  <header class="topbar">
+    <a class="topbar-logo" href="index.html">Mint <span>Help</span></a>
+    <nav class="topbar-nav">
+      <!-- Add more nav links here as needed -->
+      <a href="chat-test.html">Inline Chat Test</a>
+    </nav>
+  </header>
+
+  <!-- Hero section -->
+  <main>
+    <section class="hero">
+      <p class="hero-eyebrow">Mint Managed Services</p>
+      <h1 class="hero-heading">Welcome to <em>Mint Help</em></h1>
+      <p class="hero-sub">Get instant support from our AI agent, browse documentation, or connect directly with our team.</p>
+
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="chat-test.html">Chat with Agentforce</a>
+        <a class="btn btn-outline" href="#">Browse documentation</a>
+      </div>
+
+      <!-- Quick access cards -->
+      <div class="cards">
+        <a class="card" href="#">
+          <div class="card-icon">🚀</div>
+          <p class="card-title">Getting Started</p>
+          <p class="card-desc">New to Mint? Find setup guides and onboarding resources.</p>
+        </a>
+        <a class="card" href="#">
+          <div class="card-icon">🔧</div>
+          <p class="card-title">Troubleshooting</p>
+          <p class="card-desc">Diagnose and resolve common issues quickly.</p>
+        </a>
+        <a class="card" href="#">
+          <div class="card-icon">📖</div>
+          <p class="card-title">Documentation</p>
+          <p class="card-desc">In-depth guides, API references, and release notes.</p>
+        </a>
+        <a class="card" href="#">
+          <div class="card-icon">💬</div>
+          <p class="card-title">Contact Support</p>
+          <p class="card-desc">Raise a case or speak with a Mint consultant.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    © 2026 Mint Consulting (CRM) Limited. All rights reserved.
+  </footer>
+
+  <!-- ══════════════════════════════════════════
+       Salesforce Embedded Messaging
+       Standard floating chat button
+  ══════════════════════════════════════════ -->
+  <script type='text/javascript'>
+    function initEmbeddedMessaging() {
+      try {
+        embeddedservice_bootstrap.settings.language = 'en_US';
+        embeddedservice_bootstrap.init(
+          '00DUE0000079FGj',
+          'Test_Messaging',
+          'https://mint-consulting--mintuat.sandbox.my.site.com/ESWTestMessaging1778851875468',
+          {
+            scrt2URL: 'https://mint-consulting--mintuat.sandbox.my.salesforce-scrt.com'
+          }
+        );
+      } catch (err) {
+        console.error('Error loading Embedded Messaging: ', err);
+      }
+    };
+  </script>
+  <script type='text/javascript'
+    src='https://mint-consulting--mintuat.sandbox.my.site.com/ESWTestMessaging1778851875468/assets/js/bootstrap.min.js'
+    onload='initEmbeddedMessaging()'>
+  </script>
+
+</body>
+</html>
