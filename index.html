@@ -10,14 +10,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --red:     #E4002B;
-      --red-dk:  #B80022;
-      --black:   #111111;
-      --grey-1:  #F5F5F5;
-      --grey-2:  #E3E3E3;
-      --grey-3:  #6B6B6B;
+      --red:     #FF671F;   /* VAX orange (brand) */
+      --red-dk:  #E0540F;
+      --sale:    #DC0032;   /* VAX sale red */
+      --amber:   #FFAF42;
+      --black:   #000F21;   /* VAX navy */
+      --grey-1:  #F5F4F3;
+      --grey-2:  #D8D7D6;
+      --grey-3:  #767676;
       --white:   #ffffff;
-      --star:    #F5A623;
+      --star:    #FFAF42;
       --max:     1280px;
     }
 
@@ -38,12 +40,12 @@
     .utility nav { display: flex; gap: 18px; }
     .utility a:hover { text-decoration: underline; }
     .utility .promo { font-weight: 600; }
-    .utility .tp { color: #00B67A; font-weight: 600; }
+    .utility .tp { color: #00B67B; font-weight: 600; }
 
     /* ── Header ── */
     header.main { background: #fff; border-bottom: 1px solid var(--grey-2); position: sticky; top: 0; z-index: 50; }
     .head-row { display: flex; align-items: center; gap: 28px; min-height: 72px; }
-    .logo { font-size: 2rem; font-weight: 800; font-style: italic; letter-spacing: -1px; color: var(--red); }
+    .logo img { height: 40px; width: auto; }
     .search { flex: 1; max-width: 420px; position: relative; margin-left: auto; }
     .search input {
       width: 100%; padding: 10px 16px 10px 40px; border: 1px solid var(--grey-2);
@@ -52,30 +54,30 @@
     .search input:focus { outline: 2px solid var(--red); background: #fff; }
     .search::before { content: '⌕'; position: absolute; left: 15px; top: 50%; transform: translateY(-52%); font-size: 1.1rem; color: var(--grey-3); }
     .basket { position: relative; font-weight: 600; font-size: 0.875rem; display: flex; align-items: center; gap: 6px; }
-    .basket .count { background: var(--red); color: #fff; border-radius: 999px; font-size: 0.7rem; padding: 1px 7px; }
+    .basket .count { background: var(--red); color: var(--black); border-radius: 999px; font-size: 0.7rem; padding: 1px 7px; }
 
     .menu { border-top: 1px solid var(--grey-2); }
     .menu .wrap { display: flex; gap: 6px; overflow-x: auto; }
     .menu a { padding: 13px 14px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; border-bottom: 3px solid transparent; }
     .menu a:hover { border-bottom-color: var(--red); }
-    .menu a.offers { color: var(--red); }
+    .menu a.offers { color: var(--sale); }
 
     /* ── Hero ── */
-    .hero { background: linear-gradient(110deg, #111 0%, #2a0a10 55%, var(--red) 140%); color: #fff; }
+    .hero { background: linear-gradient(110deg, #000F21 0%, #0a1f3a 55%, #FF671F 150%); color: #fff; }
     .hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 32px; padding-top: 56px; padding-bottom: 56px; }
-    .tag { display: inline-block; background: var(--red); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; padding: 5px 12px; margin-bottom: 18px; }
+    .tag { display: inline-block; background: var(--amber); color: var(--black); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; padding: 5px 12px; margin-bottom: 18px; }
     .hero h1 { font-size: clamp(2rem, 4.4vw, 3.4rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.5px; margin-bottom: 16px; text-transform: uppercase; }
     .hero p { color: rgba(255,255,255,0.8); max-width: 480px; margin-bottom: 28px; }
     .hero-img { border-radius: 8px; overflow: hidden; background: #fff; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
     .hero-img img { width: 100%; height: 100%; object-fit: cover; }
 
     .btn { display: inline-block; padding: 13px 28px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; border: 2px solid transparent; border-radius: 4px; cursor: pointer; font-family: inherit; transition: background .15s, color .15s; }
-    .btn-red { background: var(--red); color: #fff; }
-    .btn-red:hover { background: var(--red-dk); }
+    .btn-red { background: var(--red); color: var(--black); }
+    .btn-red:hover { background: var(--amber); }
     .btn-ghost { border-color: #fff; color: #fff; margin-left: 10px; }
     .btn-ghost:hover { background: #fff; color: var(--black); }
     .btn-dark { background: var(--black); color: #fff; width: 100%; text-align: center; padding: 11px; }
-    .btn-dark:hover { background: var(--red); }
+    .btn-dark:hover { background: var(--red); color: var(--black); }
 
     /* ── Trust strip ── */
     .trust { border-bottom: 1px solid var(--grey-2); }
@@ -87,7 +89,7 @@
     section.block { padding: 56px 0 8px; }
     .sec-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; gap: 12px; }
     .sec-head h2 { font-size: 1.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.3px; }
-    .sec-head a { font-size: 0.85rem; font-weight: 600; color: var(--red); }
+    .sec-head a { font-size: 0.85rem; font-weight: 600; color: var(--red-dk); }
     .sec-head a:hover { text-decoration: underline; }
 
     /* ── Category tiles ── */
@@ -97,7 +99,7 @@
     .tile h3 { font-size: 1.05rem; font-weight: 700; }
     .tile p { font-size: 0.8rem; color: var(--grey-3); margin: 2px 0 10px; }
     .tile:hover p { color: rgba(255,255,255,.7); }
-    .tile .go { font-size: 0.8rem; font-weight: 700; color: var(--red); }
+    .tile .go { font-size: 0.8rem; font-weight: 700; color: var(--red-dk); }
 
     /* ── Collection toolbar ── */
     .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--grey-2); border-bottom: 1px solid var(--grey-2); margin-bottom: 24px; font-size: 0.85rem; flex-wrap: wrap; }
@@ -114,14 +116,14 @@
     .product .media img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .25s; }
     .product:hover .media img { transform: scale(1.05); }
     .product .ph { font-size: 3rem; opacity: .35; }
-    .badge { position: absolute; top: 10px; left: 10px; background: var(--red); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 3px; }
+    .badge { position: absolute; top: 10px; left: 10px; background: var(--sale); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 3px; }
     .product h3 { font-size: 0.92rem; font-weight: 600; margin: 12px 0 4px; line-height: 1.35; }
     .rating { font-size: 0.75rem; color: var(--grey-3); margin-bottom: 6px; }
     .rating .stars { color: var(--star); letter-spacing: 1px; }
     .price { margin-bottom: 12px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: auto; }
     .price .now { font-size: 1.15rem; font-weight: 800; }
     .price .was { font-size: 0.82rem; color: var(--grey-3); text-decoration: line-through; }
-    .price .save { font-size: 0.75rem; font-weight: 700; color: var(--red); }
+    .price .save { font-size: 0.75rem; font-weight: 700; color: var(--sale); }
 
     /* ── Promo band ── */
     .promos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -131,11 +133,11 @@
     .promo-card code { background: var(--black); color: #fff; padding: 2px 8px; border-radius: 3px; font-size: 0.78rem; }
 
     /* ── Help banner (agent entry point) ── */
-    .help { background: var(--red); color: #fff; border-radius: 8px; padding: 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 56px; }
+    .help { background: var(--red); color: var(--black); border-radius: 8px; padding: 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 56px; }
     .help h2 { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; }
     .help p { opacity: .9; font-size: 0.95rem; }
-    .help .btn { background: #fff; color: var(--red); }
-    .help .btn:hover { background: var(--black); color: #fff; }
+    .help .btn { background: var(--black); color: #fff; }
+    .help .btn:hover { background: #fff; color: var(--black); }
 
     /* ── Footer ── */
     footer { background: var(--black); color: #fff; margin-top: 64px; padding: 48px 0 24px; }
@@ -174,7 +176,7 @@
   <!-- Header -->
   <header class="main">
     <div class="wrap head-row">
-      <a class="logo" href="vax-shop.html">VAX</a>
+      <a class="logo" href="vax-shop.html"><img src="Resources/vax-logo-cropped.png" alt="VAX" /></a>
       <div class="search"><input type="search" placeholder="Search products" aria-label="Search" /></div>
       <a class="basket" href="#">🛒 Basket <span class="count">0</span></a>
     </div>
@@ -297,14 +299,18 @@
     var products = [
       { n: 'VAX MAXClean Stainshot Pet Carpet Cleaner', c: 'carpet', p: 249.99, w: 349.99, r: 4.8, rc: 76,
         i: IK + 'VAX%20MAX%20CLEAN%20ASSETS/VAX%20StainShot%20Pet/Resized%20Features%20and%20Benefits/MaxClean%20Stainshot%20Pet%20Design.jpg' },
-      { n: 'VAX SpotWash Home Pet-Design & Car Spot Cleaner', c: 'spot', p: 129.99, w: 219.99, r: 4.7, rc: 1217 },
+      { n: 'VAX SpotWash Home Pet-Design & Car Spot Cleaner', c: 'spot', p: 129.99, w: 219.99, r: 4.7, rc: 1217,
+        i: IK + 'SPOTCLEANER.png' },
       { n: 'VAX SpotWash Max Pet-Design & Car Spot Cleaner', c: 'spot', p: 149.99, w: 249.99, r: 4.7, rc: 653,
         i: IK + 'Vax/Products/Spot%20Cleaners/SpotWash%20Max%20Pet%20Design%20and%20Car/SpotWash%20Max%20Pet%20Design%20Car%20Cleaning.jpg' },
       { n: 'VAX LiftOut Multi Pet Corded Upright Vacuum Cleaner', c: 'vacuum', p: 169.99, w: 259.99, r: 4.7, rc: 1161,
         i: IK + 'Vax/Products/Vacuum%20Cleaners/Corded%20Vacuums/LiftOut%20Range/SKU%206%20-%20LiftOut%20Multi%20Pet-Design/LiftOut%20Multi%20Pet%20Design.jpg' },
-      { n: 'VAX HomePro Detect Pet Dual Cordless Vacuum Cleaner', c: 'vacuum', p: 199.99, w: 429.98, r: 4.3, rc: 231 },
-      { n: 'VAX HandVac Pro Cordless Handheld Vacuum', c: 'vacuum', p: 89.99, w: 129.99, r: 4.2, rc: 133 },
-      { n: 'VAX SpinScrub Power Carpet Cleaner', c: 'carpet', p: 139.99, w: 239.99, r: 4.6, rc: 196 }
+      { n: 'VAX HomePro Detect Pet Dual Cordless Vacuum Cleaner', c: 'vacuum', p: 199.99, w: 429.98, r: 4.3, rc: 231,
+        i: IK + 'tr:w-600/VGID%20Gallery%20Images/ALL%20VGID%20IMAGES%20/01%20-%20Vacuum%20Cleaners/HomePro%20Range/SKU5%20-%20HomePro%20Detect%20Pet/Image%2001%20HomePro%20Detect%20Pet%20-%203840x2560%20288DPI%20Web.jpg' },
+      { n: 'VAX HandVac Pro Cordless Handheld Vacuum', c: 'vacuum', p: 89.99, w: 129.99, r: 4.2, rc: 133,
+        i: IK + 'tr:w-600/Vax/Products/Vacuum%20Cleaners/Cordless%20Vacuums/HandVac%20Silver/Handvac%20Mini%20Ice%20Slate%20Blue%20WITB.jpg' },
+      { n: 'VAX SpinScrub Power Carpet Cleaner', c: 'carpet', p: 139.99, w: 239.99, r: 4.6, rc: 196,
+        i: IK + 'tr:w-600/VGID%20Gallery%20Images/SPINSCRUB%20POWER%20/Image%2001%20Spinscrub%20Power%20-%203840x2560%20288DPI%20Web.jpg' }
     ];
     var filter = 'all', sort = 'feat';
 
@@ -380,3 +386,4 @@
 
 </body>
 </html>
+
