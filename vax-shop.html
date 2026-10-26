@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VAX Demo Store | Floorcare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:     #E4002B;
+      --red-dk:  #B80022;
+      --black:   #111111;
+      --grey-1:  #F5F5F5;
+      --grey-2:  #E3E3E3;
+      --grey-3:  #6B6B6B;
+      --white:   #ffffff;
+      --star:    #F5A623;
+      --max:     1280px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      color: var(--black);
+      background: var(--white);
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+    /* ── Utility bar ── */
+    .utility { background: var(--black); color: #fff; font-size: 0.75rem; }
+    .utility .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 36px; flex-wrap: wrap; }
+    .utility nav { display: flex; gap: 18px; }
+    .utility a:hover { text-decoration: underline; }
+    .utility .promo { font-weight: 600; }
+    .utility .tp { color: #00B67A; font-weight: 600; }
+
+    /* ── Header ── */
+    header.main { background: #fff; border-bottom: 1px solid var(--grey-2); position: sticky; top: 0; z-index: 50; }
+    .head-row { display: flex; align-items: center; gap: 28px; min-height: 72px; }
+    .logo { font-size: 2rem; font-weight: 800; font-style: italic; letter-spacing: -1px; color: var(--red); }
+    .search { flex: 1; max-width: 420px; position: relative; margin-left: auto; }
+    .search input {
+      width: 100%; padding: 10px 16px 10px 40px; border: 1px solid var(--grey-2);
+      border-radius: 999px; font: inherit; font-size: 0.875rem; background: var(--grey-1);
+    }
+    .search input:focus { outline: 2px solid var(--red); background: #fff; }
+    .search::before { content: '⌕'; position: absolute; left: 15px; top: 50%; transform: translateY(-52%); font-size: 1.1rem; color: var(--grey-3); }
+    .basket { position: relative; font-weight: 600; font-size: 0.875rem; display: flex; align-items: center; gap: 6px; }
+    .basket .count { background: var(--red); color: #fff; border-radius: 999px; font-size: 0.7rem; padding: 1px 7px; }
+
+    .menu { border-top: 1px solid var(--grey-2); }
+    .menu .wrap { display: flex; gap: 6px; overflow-x: auto; }
+    .menu a { padding: 13px 14px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; border-bottom: 3px solid transparent; }
+    .menu a:hover { border-bottom-color: var(--red); }
+    .menu a.offers { color: var(--red); }
+
+    /* ── Hero ── */
+    .hero { background: linear-gradient(110deg, #111 0%, #2a0a10 55%, var(--red) 140%); color: #fff; }
+    .hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 32px; padding-top: 56px; padding-bottom: 56px; }
+    .tag { display: inline-block; background: var(--red); color: #fff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; padding: 5px 12px; margin-bottom: 18px; }
+    .hero h1 { font-size: clamp(2rem, 4.4vw, 3.4rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.5px; margin-bottom: 16px; text-transform: uppercase; }
+    .hero p { color: rgba(255,255,255,0.8); max-width: 480px; margin-bottom: 28px; }
+    .hero-img { border-radius: 8px; overflow: hidden; background: #fff; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .btn { display: inline-block; padding: 13px 28px; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; border: 2px solid transparent; border-radius: 4px; cursor: pointer; font-family: inherit; transition: background .15s, color .15s; }
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-red:hover { background: var(--red-dk); }
+    .btn-ghost { border-color: #fff; color: #fff; margin-left: 10px; }
+    .btn-ghost:hover { background: #fff; color: var(--black); }
+    .btn-dark { background: var(--black); color: #fff; width: 100%; text-align: center; padding: 11px; }
+    .btn-dark:hover { background: var(--red); }
+
+    /* ── Trust strip ── */
+    .trust { border-bottom: 1px solid var(--grey-2); }
+    .trust .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding-top: 18px; padding-bottom: 18px; }
+    .trust div { font-size: 0.82rem; font-weight: 600; text-align: center; }
+    .trust span { display: block; font-size: 0.72rem; font-weight: 400; color: var(--grey-3); }
+
+    /* ── Sections ── */
+    section.block { padding: 56px 0 8px; }
+    .sec-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; gap: 12px; }
+    .sec-head h2 { font-size: 1.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.3px; }
+    .sec-head a { font-size: 0.85rem; font-weight: 600; color: var(--red); }
+    .sec-head a:hover { text-decoration: underline; }
+
+    /* ── Category tiles ── */
+    .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .tile { background: var(--grey-1); border-radius: 8px; padding: 28px 22px; min-height: 150px; display: flex; flex-direction: column; justify-content: flex-end; transition: background .15s, color .15s; }
+    .tile:hover { background: var(--black); color: #fff; }
+    .tile h3 { font-size: 1.05rem; font-weight: 700; }
+    .tile p { font-size: 0.8rem; color: var(--grey-3); margin: 2px 0 10px; }
+    .tile:hover p { color: rgba(255,255,255,.7); }
+    .tile .go { font-size: 0.8rem; font-weight: 700; color: var(--red); }
+
+    /* ── Collection toolbar ── */
+    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid var(--grey-2); border-bottom: 1px solid var(--grey-2); margin-bottom: 24px; font-size: 0.85rem; flex-wrap: wrap; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip { border: 1px solid var(--grey-2); background: #fff; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 0.8rem; font-weight: 500; cursor: pointer; }
+    .chip:hover { border-color: var(--black); }
+    .chip.active { background: var(--black); color: #fff; border-color: var(--black); }
+    .toolbar select { font: inherit; font-size: 0.8rem; padding: 6px 10px; border: 1px solid var(--grey-2); border-radius: 4px; }
+
+    /* ── Product grid (Shopify-style cards) ── */
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 20px; }
+    .product { display: flex; flex-direction: column; }
+    .product .media { position: relative; background: var(--grey-1); border-radius: 8px; aspect-ratio: 1/1; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .product .media img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .25s; }
+    .product:hover .media img { transform: scale(1.05); }
+    .product .ph { font-size: 3rem; opacity: .35; }
+    .badge { position: absolute; top: 10px; left: 10px; background: var(--red); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 3px; }
+    .product h3 { font-size: 0.92rem; font-weight: 600; margin: 12px 0 4px; line-height: 1.35; }
+    .rating { font-size: 0.75rem; color: var(--grey-3); margin-bottom: 6px; }
+    .rating .stars { color: var(--star); letter-spacing: 1px; }
+    .price { margin-bottom: 12px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+    .price .now { font-size: 1.15rem; font-weight: 800; }
+    .price .was { font-size: 0.82rem; color: var(--grey-3); text-decoration: line-through; }
+    .price .save { font-size: 0.75rem; font-weight: 700; color: var(--red); }
+
+    /* ── Promo band ── */
+    .promos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .promo-card { border: 1px solid var(--grey-2); border-radius: 8px; padding: 24px; }
+    .promo-card strong { display: block; font-size: 1rem; margin-bottom: 6px; }
+    .promo-card p { font-size: 0.85rem; color: var(--grey-3); }
+    .promo-card code { background: var(--black); color: #fff; padding: 2px 8px; border-radius: 3px; font-size: 0.78rem; }
+
+    /* ── Help banner (agent entry point) ── */
+    .help { background: var(--red); color: #fff; border-radius: 8px; padding: 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 56px; }
+    .help h2 { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; }
+    .help p { opacity: .9; font-size: 0.95rem; }
+    .help .btn { background: #fff; color: var(--red); }
+    .help .btn:hover { background: var(--black); color: #fff; }
+
+    /* ── Footer ── */
+    footer { background: var(--black); color: #fff; margin-top: 64px; padding: 48px 0 24px; }
+    .foot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-bottom: 36px; }
+    .foot-grid h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 14px; }
+    .foot-grid a { display: block; font-size: 0.85rem; color: rgba(255,255,255,.7); padding: 3px 0; }
+    .foot-grid a:hover { color: #fff; }
+    .foot-bottom { border-top: 1px solid rgba(255,255,255,.15); padding-top: 20px; font-size: 0.75rem; color: rgba(255,255,255,.55); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 980px) {
+      .grid, .tiles { grid-template-columns: repeat(2, 1fr); }
+      .hero .wrap { grid-template-columns: 1fr; }
+      .trust .wrap { grid-template-columns: repeat(2, 1fr); }
+      .promos { grid-template-columns: 1fr; }
+      .foot-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .search { display: none; }
+      .basket { margin-left: auto; }
+      .utility nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Utility bar -->
+  <div class="utility">
+    <div class="wrap">
+      <nav><a href="#">Product Support</a><a href="#">Customer Services</a></nav>
+      <span class="promo">Order by 10pm for FREE Next Day Delivery</span>
+      <span class="tp">★ Trustpilot 4.7 / 5</span>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main">
+    <div class="wrap head-row">
+      <a class="logo" href="vax-shop.html">VAX</a>
+      <div class="search"><input type="search" placeholder="Search products" aria-label="Search" /></div>
+      <a class="basket" href="#">🛒 Basket <span class="count">0</span></a>
+    </div>
+    <div class="menu">
+      <div class="wrap">
+        <a href="#">Vacuum Cleaners</a>
+        <a href="#">Carpet Cleaners</a>
+        <a href="#">Hard Floor Cleaners</a>
+        <a href="#">Cleaning Solutions</a>
+        <a href="#">Accessories</a>
+        <a class="offers" href="#offers">Current Offers</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <span class="tag">NEW IN</span>
+          <h1>From the UK's No.1 carpet cleaning brand</h1>
+          <p>Meet the new MAXClean range – deep cleaning power for every pet, stain and spill.</p>
+          <a class="btn btn-red" href="#products">Shop now</a>
+          <a class="btn btn-ghost" href="#">Learn more</a>
+        </div>
+        <div class="hero-img">
+          <img src="https://ik.vax.co.uk/VAX%20MAX%20CLEAN%20ASSETS/VAX%20StainShot%20Pet/Resized%20Features%20and%20Benefits/MaxClean%20Stainshot%20Pet%20Design.jpg" alt="VAX MAXClean StainShot Pet" onerror="this.replaceWith(document.createTextNode('🧼'))" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust strip -->
+    <div class="trust">
+      <div class="wrap">
+        <div>Free next-day delivery<span>On orders placed before 10pm</span></div>
+        <div>Pay in 3 with Klarna<span>Interest-free instalments</span></div>
+        <div>Up to 6-year guarantee<span>Peace of mind included</span></div>
+        <div>50 years of experience<span>Trusted floorcare experts</span></div>
+      </div>
+    </div>
+
+    <!-- Categories -->
+    <section class="block">
+      <div class="wrap">
+        <div class="sec-head"><h2>Shop by category</h2></div>
+        <div class="tiles">
+          <a class="tile" href="#"><h3>Carpet Cleaners</h3><p>Deep clean every fibre</p><span class="go">Shop now →</span></a>
+          <a class="tile" href="#"><h3>Vacuum Cleaners</h3><p>Cordless &amp; corded power</p><span class="go">Shop now →</span></a>
+          <a class="tile" href="#"><h3>Spot Cleaners</h3><p>Tackle stains on the go</p><span class="go">Shop now →</span></a>
+          <a class="tile" href="#"><h3>Steam Cleaners</h3><p>Chemical-free freshness</p><span class="go">Shop now →</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section class="block" id="products">
+      <div class="wrap">
+        <div class="sec-head"><h2>Best sellers</h2><a href="#">View all →</a></div>
+
+        <div class="toolbar">
+          <div class="chips" id="chips">
+            <button class="chip active" data-f="all">All</button>
+            <button class="chip" data-f="carpet">Carpet Cleaners</button>
+            <button class="chip" data-f="vacuum">Vacuums</button>
+            <button class="chip" data-f="spot">Spot Cleaners</button>
+          </div>
+          <label>Sort by
+            <select id="sort">
+              <option value="feat">Featured</option>
+              <option value="low">Price: low to high</option>
+              <option value="high">Price: high to low</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid" id="grid"></div>
+      </div>
+    </section>
+
+    <!-- Offers -->
+    <section class="block" id="offers">
+      <div class="wrap">
+        <div class="sec-head"><h2>Promotions made for you</h2></div>
+        <div class="promos">
+          <div class="promo-card"><strong>10% off HandVac</strong><p>Use code <code>HANDVAC10</code> at checkout.</p></div>
+          <div class="promo-card"><strong>Free steamer worth £49.99</strong><p>With selected carpet cleaners.</p></div>
+          <div class="promo-card"><strong>Free toolkit or solution kit</strong><p>With selected products while stocks last.</p></div>
+        </div>
+
+        <div class="help">
+          <div>
+            <h2>Need help choosing?</h2>
+            <p>Chat to our virtual assistant for product advice, order help and support.</p>
+          </div>
+          <a class="btn" href="#" onclick="openChat(event)">Chat with us</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div><h4>Product</h4><a href="#">Vacuum Cleaners</a><a href="#">Carpet Cleaners</a><a href="#">Hard Floor Cleaners</a><a href="#">Accessories</a></div>
+        <div><h4>Company</h4><a href="#">About VAX</a><a href="#">Careers</a><a href="#">Press</a></div>
+        <div><h4>Help &amp; Support</h4><a href="#">Product Support</a><a href="#">Delivery</a><a href="#">Returns</a><a href="#">Contact us</a></div>
+        <div><h4>Policy</h4><a href="#">Privacy</a><a href="#">Cookies</a><a href="#">Terms &amp; Conditions</a></div>
+      </div>
+      <div class="foot-bottom">
+        <span>Visa · Mastercard · PayPal · Google Pay · Apple Pay · Klarna</span>
+        <span>Demo site for testing purposes only. Not the official VAX website.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Demo product data ──
+    var IK = 'https://ik.vax.co.uk/';
+    var products = [
+      { n: 'VAX MAXClean Stainshot Pet Carpet Cleaner', c: 'carpet', p: 249.99, w: 349.99, r: 4.8, rc: 76,
+        i: IK + 'VAX%20MAX%20CLEAN%20ASSETS/VAX%20StainShot%20Pet/Resized%20Features%20and%20Benefits/MaxClean%20Stainshot%20Pet%20Design.jpg' },
+      { n: 'VAX SpotWash Home Pet-Design & Car Spot Cleaner', c: 'spot', p: 129.99, w: 219.99, r: 4.7, rc: 1217 },
+      { n: 'VAX SpotWash Max Pet-Design & Car Spot Cleaner', c: 'spot', p: 149.99, w: 249.99, r: 4.7, rc: 653,
+        i: IK + 'Vax/Products/Spot%20Cleaners/SpotWash%20Max%20Pet%20Design%20and%20Car/SpotWash%20Max%20Pet%20Design%20Car%20Cleaning.jpg' },
+      { n: 'VAX LiftOut Multi Pet Corded Upright Vacuum Cleaner', c: 'vacuum', p: 169.99, w: 259.99, r: 4.7, rc: 1161,
+        i: IK + 'Vax/Products/Vacuum%20Cleaners/Corded%20Vacuums/LiftOut%20Range/SKU%206%20-%20LiftOut%20Multi%20Pet-Design/LiftOut%20Multi%20Pet%20Design.jpg' },
+      { n: 'VAX HomePro Detect Pet Dual Cordless Vacuum Cleaner', c: 'vacuum', p: 199.99, w: 429.98, r: 4.3, rc: 231 },
+      { n: 'VAX HandVac Pro Cordless Handheld Vacuum', c: 'vacuum', p: 89.99, w: 129.99, r: 4.2, rc: 133 },
+      { n: 'VAX SpinScrub Power Carpet Cleaner', c: 'carpet', p: 139.99, w: 239.99, r: 4.6, rc: 196 }
+    ];
+    var filter = 'all', sort = 'feat';
+
+    function stars(r) {
+      var f = Math.round(r);
+      return '★★★★★'.slice(0, f) + '☆☆☆☆☆'.slice(0, 5 - f);
+    }
+    function money(n) { return '£' + n.toFixed(2); }
+
+    function render() {
+      var list = products.filter(function (x) { return filter === 'all' || x.c === filter; });
+      if (sort === 'low') list.sort(function (a, b) { return a.p - b.p; });
+      if (sort === 'high') list.sort(function (a, b) { return b.p - a.p; });
+      document.getElementById('grid').innerHTML = list.map(function (x) {
+        var media = x.i
+          ? '<img src="' + x.i + '" alt="" loading="lazy" onerror="this.outerHTML=\'<span class=ph>🧹</span>\'">'
+          : '<span class="ph">🧹</span>';
+        return '<article class="product">' +
+          '<a class="media" href="#"><span class="badge">Save ' + money(x.w - x.p).replace('.00', '') + '</span>' + media + '</a>' +
+          '<h3>' + x.n.replace(/&/g, '&amp;') + '</h3>' +
+          '<div class="rating"><span class="stars">' + stars(x.r) + '</span> ' + x.r + ' (' + x.rc.toLocaleString() + ')</div>' +
+          '<div class="price"><span class="now">' + money(x.p) + '</span><span class="was">' + money(x.w) + '</span></div>' +
+          '<button class="btn btn-dark" type="button">Add to basket</button></article>';
+      }).join('');
+    }
+
+    document.getElementById('chips').addEventListener('click', function (e) {
+      var b = e.target.closest('.chip'); if (!b) return;
+      document.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+      b.classList.add('active'); filter = b.dataset.f; render();
+    });
+    document.getElementById('sort').addEventListener('change', function (e) { sort = e.target.value; render(); });
+    document.querySelector('.grid').addEventListener('click', function (e) {
+      if (e.target.matches('.btn-dark')) {
+        var c = document.querySelector('.basket .count');
+        c.textContent = (+c.textContent) + 1;
+      }
+    });
+    render();
+
+    // Opens the Salesforce chat window from the "Chat with us" button
+    function openChat(e) {
+      e.preventDefault();
+      try { embeddedservice_bootstrap.utilAPI.launchChat(); } catch (err) { console.error(err); }
+    }
+  </script>
+
+  <!-- ══════════════════════════════════════════
+       Salesforce Embedded Messaging (Agentforce)
+       Same deployment as index (3).html
+  ══════════════════════════════════════════ -->
+  <script type='text/javascript'>
+    function initEmbeddedMessaging() {
+      try {
+        embeddedservice_bootstrap.settings.language = 'en_US';
+        embeddedservice_bootstrap.init(
+          '00DUE0000079FGj',
+          'Test_Messaging',
+          'https://mint-consulting--mintuat.sandbox.my.site.com/ESWTestMessaging1778851875468',
+          {
+            scrt2URL: 'https://mint-consulting--mintuat.sandbox.my.salesforce-scrt.com'
+          }
+        );
+      } catch (err) {
+        console.error('Error loading Embedded Messaging: ', err);
+      }
+    };
+  </script>
+  <script type='text/javascript'
+    src='https://mint-consulting--mintuat.sandbox.my.site.com/ESWTestMessaging1778851875468/assets/js/bootstrap.min.js'
+    onload='initEmbeddedMessaging()'>
+  </script>
+
+</body>
+</html>
